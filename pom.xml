@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>club.futurer</groupId>
+    <artifactId>community</artifactId>
+    <version>0.0.1-${profiles.active}-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>community</name>
+    <description>community</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.6.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <!--<docker.image.prefix>mealcome</docker.image.prefix>-->
+        <docker.repostory>118.31.189.69</docker.repostory>
+        <!--<docker.registry.name>mealcome</docker.registry.name>-->
+        <docker.registry.name>library</docker.registry.name>
+    </properties>
+
+    <dependencies>
+
+        <!--数据库相关jar包-->
+
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
+
+        <!--mybatis-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
+        <!--mybatis分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.9</version>
+        </dependency>
+
+        <!--通用mapper-->
+        <!--<dependency>-->
+            <!--<groupId>tk.mybatis</groupId>-->
+            <!--<artifactId>mapper-spring-boot-starter</artifactId>-->
+            <!--<version>2.0.4</version>-->
+        <!--</dependency>-->
+
+        <!-- 阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.12</version>
+        </dependency>
+
+        <!--web相关jar包-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- jetty -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+
+        <!--开发测试相关jar包-->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 热加载 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--其他相关jar包-->
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <!--Ethereum 相关jar包-->
+        <!-- https://mvnrepository.com/artifact/org.web3j/core -->
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>core</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.novacrypto/BIP39 -->
+        <dependency>
+            <groupId>io.github.novacrypto</groupId>
+            <artifactId>BIP39</artifactId>
+            <version>0.1.9</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.github.novacrypto/BIP32 -->
+        <dependency>
+            <groupId>io.github.novacrypto</groupId>
+            <artifactId>BIP32</artifactId>
+            <version>0.0.3</version>
+        </dependency>
+
+        <!--graphql 相关jar包-->
+
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>5.0.6</version>
+        </dependency>
+
+        <!-- to embed GraphiQL tool -->
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>5.0.6</version>
+        </dependency>
+
+        <!--加密解密套件bouncycastle-->
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-ext-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-ext-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
+
+        <!-- redis客户端 -->
+        <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <!--<dependency>-->
+            <!--<groupId>commons-codec</groupId>-->
+            <!--<artifactId>commons-codec</artifactId>-->
+            <!--<version>1.4</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.google.code.gson</groupId>-->
+            <!--<artifactId>gson</artifactId>-->
+            <!--<version>2.8.1</version>-->
+        <!--</dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <!--<dependency>-->
+            <!--<groupId>com.google.guava</groupId>-->
+            <!--<artifactId>guava</artifactId>-->
+            <!--<version>23.5-jre</version>-->
+        <!--</dependency>-->
+
+        <!--加入logstash日志格式支持-->
+        <!--<dependency>-->
+            <!--<groupId>net.logstash.logback</groupId>-->
+            <!--<artifactId>logstash-logback-encoder</artifactId>-->
+            <!--<version>4.10</version>-->
+        <!--</dependency>-->
+
+        <!-- actuator安全性 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-security</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>redis.clients</groupId>-->
+            <!--<artifactId>jedis</artifactId>-->
+            <!--<version>2.8.0</version>-->
+            <!--<type>jar</type>-->
+            <!--<scope>compile</scope>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>com.belerweb</groupId>-->
+        <!--<artifactId>pinyin4j</artifactId>-->
+        <!--<version>2.5.1</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; 阿里云mq &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>com.aliyun.openservices</groupId>-->
+        <!--<artifactId>ons-client</artifactId>-->
+        <!--<version>1.2.7.Final</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-redis</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-eureka</artifactId>-->
+        <!--<version>1.3.1.RELEASE</version>-->
+        <!--<exclusions>-->
+        <!--<exclusion>-->
+        <!--<groupId>io.netty</groupId>-->
+        <!--<artifactId>netty-codec-http</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+        <!--<groupId>io.netty</groupId>-->
+        <!--<artifactId>netty-common</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+        <!--<groupId>io.netty</groupId>-->
+        <!--<artifactId>netty-buffer</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+        <!--<groupId>io.netty</groupId>-->
+        <!--<artifactId>netty-transport-native-epoll</artifactId>-->
+        <!--</exclusion>-->
+        <!--</exclusions>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>io.netty</groupId>-->
+        <!--<artifactId>netty-transport-native-epoll</artifactId>-->
+        <!--<version>4.1.8.Final</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;极光推送&ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>cn.jpush.api</groupId>-->
+        <!--<artifactId>jpush-client</artifactId>-->
+        <!--<version>3.2.9</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; javaPNS &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>com.github.fernandospr</groupId>-->
+        <!--<artifactId>javapns-jdk16</artifactId>-->
+        <!--<version>2.2.1</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>com.belerweb</groupId>-->
+            <!--<artifactId>pinyin4j</artifactId>-->
+            <!--<version>2.5.0</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>cn.afterturn</groupId>-->
+        <!--<artifactId>easypio-base</artifactId>-->
+        <!--<version>3.0.3</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>cn.afterturn</groupId>-->
+            <!--<artifactId>easypoi-web</artifactId>-->
+            <!--<version>3.0.3</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>cn.afterturn</groupId>-->
+            <!--<artifactId>easypoi-annotation</artifactId>-->
+            <!--<version>3.0.3</version>-->
+        <!--</dependency>-->
+
+        <!-- 阿里云mq -->
+        <!--<dependency>-->
+        <!--<groupId>com.aliyun.openservices</groupId>-->
+        <!--<artifactId>ons-client</artifactId>-->
+        <!--<version>1.2.7.Final</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;grpc&ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>net.devh</groupId>-->
+        <!--<artifactId>grpc-client-spring-boot-starter</artifactId>-->
+        <!--&lt;!&ndash;<version>1.0.1.RELEASE</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>1.1.1.RELEASE</version>&ndash;&gt;-->
+        <!--<version>1.3.0-RELEASE</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash;定时调度&ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.quartz-scheduler</groupId>-->
+        <!--<artifactId>quartz</artifactId>-->
+        <!--<version>2.2.1</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; warehouse api&ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>com.mealcome</groupId>-->
+        <!--<artifactId>warehouseapi</artifactId>-->
+        <!--<version>0.1.0</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>net.devh</groupId>-->
+        <!--<artifactId>grpc-server-spring-boot-starter</artifactId>-->
+        <!--&lt;!&ndash;<version>1.0.1.RELEASE</version>&ndash;&gt;-->
+        <!--&lt;!&ndash;<version>1.1.1.RELEASE</version>&ndash;&gt;-->
+        <!--<version>1.3.0-RELEASE</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<version>6.0.6</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>mysql</groupId>-->
+        <!--<artifactId>mysql-connector-java</artifactId>-->
+        <!--<version>5.1.42</version>-->
+        <!--</dependency>-->
+
+        <!-- mybatis分页插件 -->
+        <!--<dependency>-->
+        <!--<groupId>com.github.pagehelper</groupId>-->
+        <!--<artifactId>pagehelper</artifactId>-->
+        <!--<version>4.1.1</version>&lt;!&ndash; 注意版本是4.1.1，如果是5.0.0有问题，PageHelper没有实现ibatis的Interceptor接口&ndash;&gt;-->
+        <!--</dependency>-->
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>springlib</id>
+            <name>spring lib</name>
+            <url>http://repo.spring.io/libs-release/</url>
+        </repository>
+        <repository>
+            <id>springplugin</id>
+            <name>spring plugins</name>
+            <url>http://repo.spring.io/plugins-release/</url>
+        </repository>
+    </repositories>
+
+    <!--<dependencyManagement>-->
+    <!--<dependencies>-->
+    <!--<dependency>-->
+    <!--<groupId>org.spring.cloud</groupId>-->
+    <!--<artifactId>spring-cloud-dependencies</artifactId>-->
+    <!--<version>Camden.SR7</version>-->
+    <!--</dependency>-->
+    <!--</dependencies>-->
+    <!--</dependencyManagement>-->
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.4.1.Final</version>
+            </extension>
+        </extensions>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>test/*</exclude>
+                    <exclude>develop/*</exclude>
+                    <exclude>production/*</exclude>
+                    <exclude>generatorConfig_curiosity.xml</exclude>
+                    <exclude>generatorConfig_user.xml</exclude>
+                </excludes>
+            </resource>
+            <!-- 配置它包含mapper的xml-->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/${profiles.active}</directory>
+            </resource>
+            <!--Dockerfile占位符,maven参数-->
+            <resource>
+                <directory>src/main/docker</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/Dockerfile</include>
+                </includes>
+                <targetPath>../docker</targetPath>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                    <!-- 只有最后一个配置文件生效吗? -->
+                    <configurationFile>src/main/resources/generatorConfig_curiosity.xml</configurationFile>
+                    <!--<configurationFile>src/main/resources/generatorConfig_user.xml</configurationFile>-->
+                </configuration>
+            </plugin>
+            <!--配置docker maven插件，绑定install生命周期,在运行maven install时生成docker镜像-->
+            <!--springboot 利用 docker-maven插件生成docker镜像并推送到镜像仓库 https://blog.csdn.net/wangxiong2010/article/details/79287286-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <!--<version>0.4.14</version>-->
+                <!--<executions>-->
+                <!--<execution>-->
+                <!--&lt;!&ndash;<id>build-image</id>&ndash;&gt;-->
+                <!--<phase>package</phase>-->
+                <!--<goals>-->
+                <!--<goal>build</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>tag-image</id>-->
+                <!--<phase>package</phase>-->
+                <!--<goals>-->
+                <!--<goal>tag</goal>-->
+                <!--</goals>-->
+                <!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+                <!--&lt;!&ndash;<image>${docker.registry.name}/${project.artifactId}:${project.version}</image>&ndash;&gt;-->
+                <!--&lt;!&ndash;<newName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</newName>&ndash;&gt;-->
+                <!--&lt;!&ndash;</configuration>&ndash;&gt;-->
+                <!--</execution>-->
+                <!--</executions>-->
+                <configuration>
+                    <forceTags>true</forceTags>
+                    <pushImage>false</pushImage>
+                    <dockerDirectory>target/docker</dockerDirectory>
+                    <dockerHost>https://192.168.99.100:2376</dockerHost>
+                    <dockerCertPath>C:/Users/ZYC/.docker/machine/certs</dockerCertPath>
+                    <imageName>
+                        ${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}
+                    </imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <!--<imageTag>latest</imageTag>-->
+                    </imageTags>
+                    <!--第一种方式，通过Dockerfile来构建，还可以直接配置，没有Dockerfile，直接生成-->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- 开发环境 -->
+        <profile>
+            <id>develop</id>
+            <properties>
+                <profiles.active>develop</profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 测试环境-->
+        <profile>
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>production</id>
+            <properties>
+                <profiles.active>production</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

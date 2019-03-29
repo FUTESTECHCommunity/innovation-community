@@ -1,0 +1,57 @@
+#
+# Schemas must have at least a query root type
+#
+schema {
+    query: Query
+}
+
+type Query {
+    findQuestionings(pageNum:Int!, pageSize:Int!) : [Questioning]!
+    findOneQuestioning(id: Long!) : Questioning
+    findComment(id:Long!) : Comment
+}
+
+type Questioning {
+    id: ID
+    content: String
+    mdContent: String
+    summary: String
+    images: [String]
+    tags: [String]
+    created: String
+    vote: VoteSummarizing
+    author: Author
+    comments(first:Int!, offset:Int!): CommentPage
+}
+
+type CommentPage {
+    totalCount: Long
+    datas: [Comment]
+}
+
+type VoteSummarizing {
+    percent191: Long
+    percent382: Long
+    percent500: Long
+    percent618: Long
+    percent809: Long
+    excellent: Long
+}
+
+type Comment {
+    id: ID
+    author : Author
+    content: String
+    mdContent: String
+    up: Long
+    down: Long
+    subs: [Comment]
+}
+
+type Author {
+    name: String
+    userId: ID
+    identityId: String
+    avatar: String
+    grade: String
+}

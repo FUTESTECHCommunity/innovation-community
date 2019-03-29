@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <!--<property name="LOG_HOME" value="${LOG_HOME:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}" />-->
+    <!--用spring的配置文件来替换此处的配置-->
+    <springProperty scope="context" name="LOG_HOME" source="log.path"/>
+    <springProperty scope="context" name="LOG_LEVEL" source="log.level"/>
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <!--<property name="LOG_HOME" value="F:/logs" />-->
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <!-- Console 输出设置 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <!--  显示毫秒数
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>-->
+            <pattern>%d{HH:mm:ss} %-5level [%thread]  %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- 控制台设置 -->
+    <!-- 不带彩色的日志在控制台输出时候的设置 -->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--<!– encoder 默认配置为PatternLayoutEncoder –>-->
+    <!--<encoder>-->
+    <!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+    <!--</pattern>-->
+    <!--</encoder>-->
+    <!--</appender>-->
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/futurer.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/futurer.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>60</MaxHistory>
+            <!--最大文件大小-->
+            <MaxFileSize>2MB</MaxFileSize>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--生成方便Logstash处理的日志文件-->
+    <!--<appender name="LOGSTASH" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+        <!--&lt;!&ndash;<file>${LOG_HOME}/warehouse.log</file>&ndash;&gt;-->
+        <!--<encoder charset="utf-8" class="net.logstash.logback.encoder.LogstashEncoder">-->
+        <!--</encoder>-->
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+            <!--&lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+            <!--<FileNamePattern>${LOG_HOME}/warehouse.%d{yyyy-MM-dd}-%i.log</FileNamePattern>-->
+            <!--&lt;!&ndash;日志文件保留天数&ndash;&gt;-->
+            <!--<MaxHistory>60</MaxHistory>-->
+            <!--&lt;!&ndash;最大文件大小&ndash;&gt;-->
+            <!--<MaxFileSize>2MB</MaxFileSize>-->
+        <!--</rollingPolicy>-->
+    <!--</appender>-->
+
+    <!--<!–日志异步到数据库 –>-->
+    <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">-->
+    <!--<!–日志异步到数据库 –>-->
+    <!--<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">-->
+    <!--<!–连接池 –>-->
+    <!--<dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+    <!--<driverClass>com.mysql.jdbc.Driver</driverClass>-->
+    <!--<url>jdbc:mysql://127.0.0.1:3306/databaseName</url>-->
+    <!--<user>root</user>-->
+    <!--<password>root</password>-->
+    <!--</dataSource>-->
+    <!--</connectionSource>-->
+    <!--</appender>-->
+
+    <!--&lt;!&ndash;注意，如果配置了这个，就算root没有配appender-ref，还是会初始化这个appender，如果配置有问题，可能会卡死&ndash;&gt;-->
+    <!--<appender name="STOCK-HSQLDB" class="ch.qos.logback.classic.db.DBAppender">-->
+        <!--&lt;!&ndash;<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">&ndash;&gt;-->
+            <!--&lt;!&ndash;<dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource"> 0.9.1.1版本 会发生死锁!APPARENT DEADLOCK!!! Creating emergency threads for unassigned pending tasks!&ndash;&gt;-->
+                <!--&lt;!&ndash;<driverClass>org.hsqldb.jdbcDriver</driverClass>&ndash;&gt;-->
+                <!--&lt;!&ndash;<jdbcUrl>jdbc:hsqldb:hsql://localhost/stock</jdbcUrl>&ndash;&gt;-->
+                <!--&lt;!&ndash;<user>SA</user>&ndash;&gt;-->
+                <!--&lt;!&ndash;<password></password>&ndash;&gt;-->
+            <!--&lt;!&ndash;</dataSource>&ndash;&gt;-->
+        <!--&lt;!&ndash;</connectionSource>&ndash;&gt;-->
+        <!--<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">-->
+            <!--<dataSource class="com.alibaba.druid.pool.DruidDataSource">-->
+                <!--<param name="url" value="jdbc:hsqldb:hsql://localhost/stock"/>-->
+                <!--<param name="username" value="SA"/>-->
+                <!--<param name="password" value=""/>-->
+            <!--</dataSource>-->
+        <!--</connectionSource>-->
+        <!--&lt;!&ndash;<connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">&ndash;&gt;-->
+            <!--&lt;!&ndash;<driverClass>org.hsqldb.jdbcDriver</driverClass>&ndash;&gt;-->
+            <!--&lt;!&ndash;<url>jdbc:hsqldb:hsql://localhost/stock</url>&ndash;&gt;-->
+            <!--&lt;!&ndash;<user>SA</user>&ndash;&gt;-->
+            <!--&lt;!&ndash;<password></password>&ndash;&gt;-->
+        <!--&lt;!&ndash;</connectionSource>&ndash;&gt;-->
+    <!--</appender>-->
+
+    <!-- * 通配符 设置log打印级别 对所有类有效TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF-->
+    <!--将上面的appender添加到root-->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="LOGSTASH" />-->
+        <appender-ref ref="FILE" />
+        <!--<appender-ref ref="STOCK-HSQLDB" />-->
+    </root>
+</configuration>

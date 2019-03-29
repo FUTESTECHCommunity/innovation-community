@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- !!!! Driver Class Path !!!! -->
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar" />
+
+    <context id="postgresql_curiosity_context" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- !!!! Database Configurations !!!! -->
+        <jdbcConnection driverClass="org.postgresql.Driver"  connectionURL="jdbc:postgresql://127.0.0.1:5432/futurer" userId="futurer" password="future007">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- !!!! Model Configurations !!!! -->
+        <javaModelGenerator targetPackage="club.futurer.community.business.curiosity.model.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="mapUnderscoreToCamelCase" value="true"/>
+        </javaModelGenerator>
+
+        <!-- !!!! Mapper XML Configurations !!!! -->
+        <sqlMapGenerator targetPackage="club.futurer.community.business.curiosity.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- !!!! Mapper Interface Configurations !!!! -->
+        <javaClientGenerator targetPackage="club.futurer.community.business.curiosity.dao" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+         <!--!!!! Table Configurations !!!!-->
+        <table tableName="questioning" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+
+        <table tableName="questioning_score" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+
+        <table tableName="questioning_vote" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+
+        <table tableName="questioning_vote_summarizing" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+
+        <table tableName="questioning_comment" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+
+        <table tableName="questioning_comment_score" enableCountByExample="true" enableDeleteByExample="false"
+               enableSelectByExample="true" enableDeleteByPrimaryKey="false"
+               enableUpdateByPrimaryKey="true" enableInsert="true"
+               enableSelectByPrimaryKey="true" enableUpdateByExample="true">
+        </table>
+    </context>
+</generatorConfiguration>
